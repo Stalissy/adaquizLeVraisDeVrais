@@ -1,13 +1,14 @@
 import "./style.css";
 import { addQuestionHtml, btnValide } from "./readJson.js";
 
-// Charge un fichier
+const btn = document.getElementById("start-btn");
+
 fetch("/quiz.json")
-  // Trensforme le texte JSON en objet JS
   .then((response) => response.json())
-  // Dévini la variable data comme étant l'objet JS
   .then((data) => {
-    addQuestionHtml(data.questions, 1, "app");
-    btnValide(data.questions, 1, "valide");
+    btn.addEventListener("click", () => {
+      addQuestionHtml(data.questions, 1, "main");
+      btnValide(data.questions, 1, "valide", "main");
+    });
   })
-  .catch((error) => console.error("Erreur:", error));
+  .catch((error) => console.error("Erreur :", error));

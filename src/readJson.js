@@ -18,18 +18,19 @@ export function addQuestionHtml(data, nbQuestion, divID) {
 
   const div = document.getElementById(divID);
 
-  // Ajoute la question
   div.innerHTML = `<h3>${question}</h3>`;
 
-  // Ajoute les réponse possible
-  options.forEach((option, i) => {
-    div.innerHTML += `<label><input type="checkbox" class="check-option">${option}</label><br>`;
+  options.forEach((option) => {
+    div.innerHTML += `
+      <label>
+        <input type="checkbox" class="check-option">
+        ${option}
+      </label><br>`;
   });
 
-  // Ajoute le bouton de validation
   div.innerHTML += `
     <div id="good-girl">
-      <button id="valide" class="btn">Validée</button>
+      <button id="valide" class="btn">Valider</button>
     </div>`;
 }
 
@@ -40,12 +41,11 @@ export function btnValide(data, nbQuestion, btnID, divID) {
   btn.addEventListener("click", () => {
     const checkboxes = document.querySelectorAll(".check-option");
     const checkOption = [];
-    // Enregiste les réponse soumise pour les comparée plus tard
+
     checkboxes.forEach((checkbox, index) => {
       if (checkbox.checked) checkOption.push(index);
     });
 
-    // Vérifie si l'utilisateur à les bonne réponse
     comparReponse(data, nbQuestion, checkOption, divID);
   });
 }
@@ -68,21 +68,21 @@ function arraysEqual(a, b) {
   return a.length === b.length && a.every((val, i) => val === b[i]);
 }
 
-// --- Affichage en cas de bonne réponse ---
-function goodGirl(divID, data, nbQuestion) {
+// --- Affichage bonne réponse ---
+function goodGirl(divID) {
   const div = document.getElementById(divID);
-  // Ajoute le texte disant si tu à réson et le bouton "question suvante"
   div.innerHTML = `
-    <p>Bonne Fille</p>
-    <button id="nextQuestion">Question Suivante</button>
+    <p>Bonne fille</p>
+    <button id="nextQuestion">Question suivante</button>
   `;
 }
 
-function badGirl(divID, data, nbQuestion) {
+// --- Mauvaise réponse ---
+function badGirl(divID) {
   const div = document.getElementById(divID);
   div.innerHTML = `
-    <p>Mauvaise Fille</p>
-    <button id="nextQuestion">Question Suivante</button>
+    <p>Mauvaise fille</p>
+    <button id="nextQuestion">Question suivante</button>
   `;
 }
 
@@ -91,7 +91,7 @@ function nextQuestion(data, nbQuestion, divID) {
   const btn = document.getElementById("nextQuestion");
 
   btn.addEventListener("click", () => {
-    addQuestionHtml(data, nbQuestion + 1, "app");
+    addQuestionHtml(data, nbQuestion + 1, divID);
     btnValide(data, nbQuestion + 1, "valide", divID);
   });
 }
