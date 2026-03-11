@@ -1,17 +1,16 @@
 * {
   margin: 0;
   padding: 0;
-}
-html {
-  scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
-/* Colors token */
+/** Coler,style text token */
 :root {
-  --color-primary: #ffcfea;
+  --color-primary: #dec1db;
   --color-text: #f3f4a4;
   --bg-color: #9e99d6;
   --color-bg-color: pink;
+  --text-mono: "Share Tech Mono", monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -20,12 +19,44 @@ html {
     --bg-color: rgb(3, 3, 38);
   }
 }
+/* * bases */
 body {
+  font-family: var(--text-mono);
   color: var(--color-text);
   background-color: var(--bg-color);
-  text-align: center;
-  margin-top: 5rem;
+  /* text-align: center; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
 }
+/* *header*/
+header {
+  margin-bottom: 2rem;
+}
+header h1 {
+  font-family: "Rubik Glitch", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+header h1::before,
+header h1::after {
+  content: "  ";
+  font-size: 0.8em;
+}
+main {
+  width: 100%;
+  max-width: 640px;
+}
+
+/* *button */
 button {
   background: #ffcfcf;
   background: radial-gradient(
