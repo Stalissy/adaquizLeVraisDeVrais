@@ -59,8 +59,12 @@ function comparReponse(data, nbQuestion, checkOption, divID) {
   } else {
     badGirl("good-girl");
   }
-
-  nextQuestion(data, nbQuestion, divID);
+  if (nbQuestion < data.length - 1) {
+    const btn = document.getElementById("nextQuestion");
+    nextQuestion(data, nbQuestion, divID, btn);
+  } else {
+    finalScren(divID);
+  }
 }
 
 // --- Vérification d'égalité de tableaux ---
@@ -87,11 +91,17 @@ function badGirl(divID) {
 }
 
 // --- Passage à la question suivante ---
-function nextQuestion(data, nbQuestion, divID) {
-  const btn = document.getElementById("nextQuestion");
-
+function nextQuestion(data, nbQuestion, divID, btn) {
   btn.addEventListener("click", () => {
     addQuestionHtml(data, nbQuestion + 1, divID);
     btnValide(data, nbQuestion + 1, "valide", divID);
   });
+}
+
+function finalScren(divID) {
+  const div = document.getElementById(divID);
+  const score = "8/11";
+
+  div.innerHTML = `<h3 id="congratMessage">Bravo pour avoir fini le test.</h3>
+  <p id="score">Score : ${score}</p>`;
 }
