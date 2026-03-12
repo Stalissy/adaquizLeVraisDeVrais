@@ -31,14 +31,23 @@ export function addQuestionHtml(data, nbQuestion, divID) {
   const div = document.getElementById(divID);
 
   div.innerHTML = `<h3>${question}</h3>`;
-
-  options.forEach((option) => {
-    div.innerHTML += `
+  if (1 < extractCorrectIndex(data, nbQuestion).length) {
+    options.forEach((option) => {
+      div.innerHTML += `
       <label>
         <input type="checkbox" class="check-option">
         ${option}
       </label><br>`;
-  });
+    });
+  } else {
+    options.forEach((option) => {
+      div.innerHTML += `
+      <label>
+        <input type="radio" class="check-option" name="answerRadio">
+        ${option}
+      </label><br>`;
+    });
+  }
 
   div.innerHTML += `
     <div id="good-girl">
@@ -91,6 +100,8 @@ function goodGirl(divID) {
     <p>Bonne fille</p>
     <button id="nextQuestion">Question suivante</button>
   `;
+  goodAnswers++;
+  console.log(goodAnswers);
 }
 
 // --- Mauvaise réponse ---
@@ -110,13 +121,11 @@ function nextQuestion(data, nbQuestion, divID, btn) {
   });
 }
 
-// --- Affiche l'écrant de fin ---
 function finalScren(divID, data) {
   const div = document.getElementById(divID);
-  const score = "8/11";
 
   div.innerHTML = `<h3 id="congratMessage">Bravo pour avoir fini le test.</h3>
-  <p id="score">Score : ${score}</p>
+  <p id="scoreid"> Ton score est de : ${calcScore(data, goodAnswers)}</p>;
   <button id="restart">Recomancer le quiz</button>`;
 
   restart(data);
@@ -130,4 +139,14 @@ function restart(data) {
     addQuestionHtml(data, 1, "main");
     btnValide(data, 1, "valide", "main");
   });
+}
+
+//Calcul du Score//
+//Faire affichage//
+export let goodAnswers = 0;
+
+export function calcScore(data, bonneReponses) {
+  let nbsQuestion = data.length;
+  let score = `${bonneReponses} / ${nbsQuestion}`;
+  return score;
 }
