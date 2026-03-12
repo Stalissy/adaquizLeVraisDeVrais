@@ -1,8 +1,6 @@
-function verifierScore() {
-  let score = document.getElementById("score").value;
-  let message = document.getElementById("message");
-  scoreText.innerHTML = "Ton score est de " + score + "%";
-  if (score >= 0) {
+function checkScore() {
+  let score = (goodAnswers / data.length) * 100;
+  if (score === 0) {
     message.innerHTML = "Oups ! Tu n'as trouvé aucune bonne réponse 😱";
   } else if (score < 50) {
     message.innerHTML =
@@ -11,7 +9,7 @@ function verifierScore() {
     message.innerHTML = "C'est pas mal, mais tu peux encore t'améliorer 💪";
   } else if (score >= 80 && score <= 99) {
     message.innerHTML = "C'est bien, tu as fait peu d'erreurs 😉";
-  } else if (score == 100) {
+  } else if (score === 100) {
     message.innerHTML = "Aucune erreur, c'est parfait 😎";
   }
 }
