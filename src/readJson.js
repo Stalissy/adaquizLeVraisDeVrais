@@ -1,3 +1,15 @@
+export function start(json, btn) {
+  fetch(`/${json}`)
+    .then((response) => response.json())
+    .then((data) => {
+      btn.addEventListener("click", () => {
+        addQuestionHtml(data.questions, 1, "main");
+        btnValide(data.questions, 1, "valide", "main");
+      });
+    })
+    .catch((error) => console.error("Erreur :", error));
+}
+
 // --- Fonctions d'extraction ---
 function extractQuestion(data, nbQuestion) {
   return data[nbQuestion - 1].question;
@@ -113,8 +125,23 @@ function finalScren(divID, data) {
   const div = document.getElementById(divID);
 
   div.innerHTML = `<h3 id="congratMessage">Bravo pour avoir fini le test.</h3>
-  <p id="scoreid"> Ton score est de : ${calcScore(data, goodAnswers)}</p>`;
+
+  <p id="scoreid"> Ton score est de : ${calcScore(data, goodAnswers)}</p>;
+  <button id="restart">Recomancer le quiz</button>`;
+
+  restart(data);
 }
+
+// --- Bounton recommancée ---
+function restart(data) {
+  const btnRestart = document.getElementById("restart");
+  btnRestart.addEventListener("click", () => {
+    goodAnswers = 0;
+    addQuestionHtml(data, 1, "main");
+    btnValide(data, 1, "valide", "main");
+  });
+}
+
 //Calcul du Score//
 //Faire affichage//
 export let goodAnswers = 0;
