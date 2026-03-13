@@ -1,3 +1,4 @@
+import { checkScore } from "./affichage";
 export function start(json, btn) {
   fetch(`/${json}`)
     .then((response) => response.json())
@@ -132,6 +133,7 @@ function finalScren(divID, data) {
 
   div.innerHTML = `<h3 id="congratMessage">Bravo pour avoir fini le test.</h3>
   <p id="scoreid"> Ton score est de : ${calcScore(data, goodAnswers)}</p>;
+  <p id="message">${checkScore(goodAnswers, data)}</p>;
   <button id="restart">Recommencer le quiz</button>`;
 
   restart(data);
@@ -147,12 +149,11 @@ function restart(data) {
   });
 }
 
-//Calcul du Score//
 export let goodAnswers = 0;
 /**
  * Score
  * @param {*} data
- * @param {*} bonneReponses
+ * @param {number} bonneReponses number of good answers
  * @returns
  */
 export function calcScore(data, bonneReponses) {
