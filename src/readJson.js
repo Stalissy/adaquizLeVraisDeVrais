@@ -149,12 +149,11 @@ function restart(data) {
   });
 }
 
-//Calcul du Score//
 export let goodAnswers = 0;
 /**
  * Score
  * @param {*} data
- * @param {*} bonneReponses
+ * @param {number} bonneReponses number of good answers
  * @returns
  */
 export function calcScore(data, bonneReponses) {

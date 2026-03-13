@@ -1,4 +1,10 @@
 //j'ai modifié cette fonction à exporter pour le final screen//
+/**
+ *
+ * @param {number} goodAnswers
+ * @param {*} data
+ * @returns
+ */
 export function checkScore(goodAnswers, data) {
   let score = (goodAnswers / data.length) * 100;
   if (score === 0) {
